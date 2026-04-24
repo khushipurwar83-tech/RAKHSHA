@@ -23,7 +23,7 @@ app.add_middleware(
 sio = socketio.AsyncServer(async_mode='asgi', cors_allowed_origins='*')
 socket_app = socketio.ASGIApp(sio, other_asgi_app=app)
 
-from src.routes import authRoutes, sosRoutes, routeRoutes, heatmapRoutes, reportRoutes, userRoutes
+from src.routes import authRoutes, sosRoutes, routeRoutes, heatmapRoutes, reportRoutes, userRoutes, safeHavenRoutes
 
 app.include_router(authRoutes.router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(sosRoutes.router, prefix="/api/sos", tags=["SOS"])
@@ -31,6 +31,8 @@ app.include_router(routeRoutes.router, prefix="/api/routes", tags=["Routing"])
 app.include_router(heatmapRoutes.router, prefix="/api/heatmap", tags=["Heatmap"])
 app.include_router(reportRoutes.router, prefix="/api/reports", tags=["Reports"])
 app.include_router(userRoutes.router, prefix="/api/users", tags=["Users"])
+app.include_router(safeHavenRoutes.router, prefix="/api/safe-havens", tags=["Safe Havens"])
+
 
 
 
