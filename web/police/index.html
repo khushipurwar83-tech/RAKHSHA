@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RAKHSHA | Police Dashboard</title>
+    <link href="../assets/css/tailwind.css" rel="stylesheet">
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <style>
+        body { background-color: #0A0A0A; color: white; font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+    <div class="flex h-screen">
+        <aside class="w-64 glass p-6">
+            <h1 class="text-2xl font-bold text-red-500 mb-8">RAKHSHA HQ</h1>
+            <nav class="space-y-4">
+                <a href="live.html" class="block text-cyan-400">Live Alerts</a>
+                <a href="reports.html" class="block text-gray-400 hover:text-white">Reports</a>
+            </nav>
+        </aside>
+        <main class="flex-1 p-8">
+            <h2 class="text-3xl font-bold mb-6">Active Emergencies</h2>
+            <div id="alerts-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </main>
+    </div>
+    <script>
+        const socket = io("http://localhost:8000");
+        const container = document.getElementById('alerts-container');
+        
+        socket.emit("join_room", "police_dashboard");
+        
+        socket.on("sos_alert", (data) => {
+            const card = document.createElement('div');
+            card.className = "glass p-6 rounded-xl border-red-500 border-2";
+            card.innerHTML = `
+                <h3 class="text-xl font-bold text-red-500 mb-2">SOS ALERT</h3>
+                <p>User ID: ${data.user_id}</p>
+                <p>Location: ${data.location.latitude}, ${data.location.longitude}</p>
+                <button class="mt-4 bg-cyan-500 text-black px-4 py-2 rounded font-bold">Dispatch Unit</button>
+            `;
+            container.prepend(card);
+        });
+    </script>
+</body>
+</html>

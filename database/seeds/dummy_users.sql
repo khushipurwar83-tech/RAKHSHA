@@ -1,0 +1,1 @@
+INSERT INTO users (id, full_name, email, phone_number, password_hash) VALUES (uuid_generate_v4(), 'Demo User', 'demo@example.com', '1234567890', 'hash');

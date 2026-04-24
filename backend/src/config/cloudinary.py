@@ -1,0 +1,1 @@
+def setup_cloudinary(): pass

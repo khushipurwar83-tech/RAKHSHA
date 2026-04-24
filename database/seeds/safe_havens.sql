@@ -1,0 +1,1 @@
+INSERT INTO safe_havens (name, type, location) VALUES ('Central Police', 'police', ST_SetSRID(ST_MakePoint(77.2100, 28.6120), 4326));

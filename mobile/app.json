@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "RAKHSHA",
+    "slug": "rakhsha",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A0A0A"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rakhsha.app",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "location",
+          "audio"
+        ],
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "RAKHSHA needs your location in the background to continuously track your safety route and alert guardians if you deviate.",
+        "NSMicrophoneUsageDescription": "RAKHSHA needs microphone access for the Voice-activated SOS feature."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#0A0A0A"
+      },
+      "package": "com.rakhsha.app",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "RECORD_AUDIO",
+        "VIBRATE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow RAKHSHA to use your location."
+        }
+      ],
+      "expo-secure-store"
+    ]
+  }
+}
