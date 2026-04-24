@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { View, TouchableOpacity, Text, Animated, StyleSheet, Vibration } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useSOSStore } from '../../store/useSOSStore';
+import { Theme } from '../../theme/DesignSystem';
 
 const SOSButton = ({ onTrigger }) => {
   const { isSOSActive, activateSOS } = useSOSStore();
@@ -59,17 +60,17 @@ const styles = StyleSheet.create({
     width: 160,
     height: 160,
     borderRadius: 80,
-    backgroundColor: 'rgba(255, 59, 48, 0.3)',
+    backgroundColor: 'rgba(255, 59, 48, 0.2)',
   },
   button: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: '#FF3B30',
+    backgroundColor: Theme.colors.error,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 10,
-    shadowColor: '#FF3B30',
+    elevation: 15,
+    shadowColor: Theme.colors.error,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 10,
