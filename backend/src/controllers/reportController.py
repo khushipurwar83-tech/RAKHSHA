@@ -50,6 +50,7 @@ async def get_recent_reports(db: Session, limit: int = 10):
                 "report_time": r.report_time
             })
             
-        return reports
+        return {"reports": reports}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))
+

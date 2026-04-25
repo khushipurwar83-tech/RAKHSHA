@@ -1,1 +1,77 @@
-<html><body>Reports</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RAKHSHA | Incident Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0A0A0A; color: white; font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="flex justify-between items-center mb-10">
+            <div>
+                <h1 class="text-3xl font-bold text-red-500">INCIDENT ARCHIVE</h1>
+                <p class="text-gray-500">Reviewing all user-submitted safety reports</p>
+            </div>
+            <a href="index.html" class="bg-gray-800 px-6 py-2 rounded-lg hover:bg-gray-700 transition">Back to Live View</a>
+        </header>
+
+        <div id="loading" class="text-center py-20">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto"></div>
+            <p class="mt-4 text-gray-500">Fetching database records...</p>
+        </div>
+
+        <div id="reports-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Reports will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        async function fetchReports() {
+            try {
+                const response = await fetch("https://rakhsha-backend.onrender.com/api/reports/");
+                const data = await response.json();
+                const container = document.getElementById('reports-grid');
+                const loading = document.getElementById('loading');
+                
+                loading.style.display = 'none';
+                
+                if (data.reports && data.reports.length > 0) {
+                    data.reports.forEach(report => {
+                        const card = document.createElement('div');
+                        card.className = "glass p-6 rounded-2xl hover:border-red-500 transition duration-300";
+                        card.innerHTML = `
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-red-900/30 text-red-400 text-xs font-bold px-3 py-1 rounded-full border border-red-900/50">
+                                    SEVERITY: ${report.severity || '3'}
+                                </span>
+                                <span class="text-gray-600 text-xs">${new Date(report.report_time).toLocaleString()}</span>
+                            </div>
+                            <h3 class="text-lg font-bold mb-2">${report.type || 'Safety Alert'}</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">${report.description}</p>
+                            <div class="mt-6 flex items-center justify-between">
+                                <div class="text-xs text-gray-500">
+                                    📍 ${report.location.latitude.toFixed(4)}, ${report.location.longitude.toFixed(4)}
+                                </div>
+
+                                <button class="text-cyan-400 text-xs font-bold hover:underline">View on Map</button>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+                } else {
+                    container.innerHTML = '<p class="text-center col-span-2 text-gray-600 py-20">No incident reports found in the database.</p>';
+                }
+            } catch (error) {
+                console.error("Error fetching reports:", error);
+                document.getElementById('loading').innerHTML = '<p class="text-red-500">Failed to load reports from server.</p>';
+            }
+        }
+
+        fetchReports();
+    </script>
+</body>
+</html>
