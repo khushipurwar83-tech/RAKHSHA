@@ -61,13 +61,17 @@ export default function Home({ navigation }) {
         </View>
 
         {/* RECENT REPORTS CARD */}
-        <View style={[GlobalStyles.glassCard, { marginTop: 20 }]}>
+        <TouchableOpacity 
+          style={[GlobalStyles.glassCard, { marginTop: 20 }]}
+          onPress={() => navigation.navigate('History')}
+        >
           <View style={styles.row}>
             <Ionicons name="alert-circle" size={24} color={Theme.colors.error} />
             <Text style={styles.cardTitle}>Unsafe Area Alert</Text>
           </View>
-          <Text style={styles.cardDesc}>Heavy crowd reported near Sector 62. Exercise caution.</Text>
-        </View>
+          <Text style={styles.cardDesc}>Heavy crowd reported near Sector 62. Tap to view full incident log.</Text>
+        </TouchableOpacity>
+
         
         <View style={{height: 100}} />
       </ScrollView>
