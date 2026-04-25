@@ -10,7 +10,7 @@
       "preview": {
         "android": {
           "buildType": "apk",
-          "image": "ubuntu-20.04-jdk-11"
+          "image": "sdk-49"
         }
       },
 
