@@ -60,8 +60,11 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow RAKHSHA to use your location."
         }
-      ]
-    ],
+      ],
+      "expo-sensors"
+    ]
+
+,
     "extra": {
       "eas": {
         "projectId": "c9d0e025-d470-4d72-9043-fee789cb8dc1"

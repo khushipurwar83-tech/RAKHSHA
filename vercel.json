@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/police", "destination": "/web/police/index.html" },
+    { "source": "/guardian", "destination": "/web/guardian/index.html" },
+    { "source": "/admin", "destination": "/web/admin/index.html" },
+    { "source": "/assets/(.*)", "destination": "/web/assets/$1" }
+  ]
+}
