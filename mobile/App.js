@@ -14,9 +14,13 @@ import { SocketProvider } from './contexts/SocketContext';
 
 // Navigation
 import AppNavigator from './navigation/AppNavigator';
+import { useShakeSOS } from './store/useShakeSOS';
+
 
 export default function App() {
   const { isOffline, setOfflineMode } = useAppStore();
+  useShakeSOS(); // Enable Shake-to-SOS globally
+
   const [locationPermission, setLocationPermission] = useState(null);
 
   useEffect(() => {

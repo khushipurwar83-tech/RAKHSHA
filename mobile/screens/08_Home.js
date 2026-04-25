@@ -4,7 +4,11 @@ import { Theme, GlobalStyles } from '../theme/DesignSystem';
 import SOSButton from '../components/emergency/SOSButton';
 import { Ionicons } from '@expo/vector-icons';
 
+import { useAppStore } from '../store/useAppStore';
+
 export default function Home({ navigation }) {
+  const { isOffline } = useAppStore();
+
   const QuickActions = [
     { id: '1', title: 'Safe Route', icon: 'navigate', screen: 'Navigation', color: Theme.colors.primary },
     { id: '2', title: 'Heatmap', icon: 'map', screen: 'Heatmap', color: '#FFD700' },
@@ -17,8 +21,12 @@ export default function Home({ navigation }) {
       <View style={styles.header}>
         <View>
           <Text style={styles.greeting}>Hello, Khushi</Text>
-          <Text style={styles.status}>Status: Secure</Text>
+          <View style={styles.statusRow}>
+            <View style={[styles.statusDot, { backgroundColor: isOffline ? Theme.colors.error : Theme.colors.success }]} />
+            <Text style={styles.status}>Shield: {isOffline ? 'Offline Mode' : 'Secured'}</Text>
+          </View>
         </View>
+
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <View style={styles.profileCircle}>
             <Ionicons name="person" size={24} color={Theme.colors.primary} />
@@ -71,8 +79,9 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Theme.colors.background },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20, marginTop: 10 },
   greeting: { fontSize: 24, fontWeight: 'bold', color: '#FFF' },
-  status: { color: Theme.colors.success, fontSize: 14, marginTop: 4 },
-  profileCircle: { width: 50, height: 50, borderRadius: 25, backgroundColor: Theme.colors.surface, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: Theme.colors.border },
+  statusRow: { flexDirection: 'row', alignItems: 'center', marginTop: 4 },
+  statusDot: { width: 8, height: 8, borderRadius: 4, marginRight: 6 },
+  status: { color: '#AAA', fontSize: 12, fontWeight: '600' },
   sosCard: { margin: 20, padding: 30, borderRadius: 30, backgroundColor: '#111', alignItems: 'center', borderWidth: 1, borderColor: '#222' },
   sosTitle: { color: Theme.colors.error, fontWeight: 'bold', letterSpacing: 3, marginBottom: 10 },
   sosHint: { color: '#444', fontSize: 12, marginTop: 10 },

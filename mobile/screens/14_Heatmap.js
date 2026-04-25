@@ -37,6 +37,8 @@ export default function HeatmapScreen() {
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
+        mapPadding={{ top: 50, bottom: 120, left: 10, right: 10 }}
+        showsUserLocation={true}
         initialRegion={{
           latitude: 28.6139,
           longitude: 77.2090,
@@ -45,6 +47,7 @@ export default function HeatmapScreen() {
         }}
         customMapStyle={darkMapStyle}
       >
+
         {points.length > 0 && (
           <MapHeatmap
             points={points}
