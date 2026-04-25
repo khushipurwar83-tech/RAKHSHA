@@ -57,8 +57,7 @@
           "isAndroidBackgroundLocationEnabled": true,
           "isAndroidForegroundServiceEnabled": true
         }
-      ],
-      "expo-sensors"
+      ]
     ],
     "extra": {
       "eas": {
