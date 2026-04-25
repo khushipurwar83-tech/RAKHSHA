@@ -1,12 +1,15 @@
-from sqlalchemy import Column, String, Text, Float, DateTime, ForeignKey, Integer
-from sqlalchemy.dialects.postgresql import UUID
-import uuid
-from src.config.database import Base
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy.sql import func
+from geoalchemy2 import Geography
+from src.core.database import Base
 
 class Report(Base):
-    __tablename__ = "user_reports"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
-    description = Column(Text)
-    photo_url = Column(String(500))
-    severity = Column(Integer)
+    __tablename__ = "reports"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    location = Column(Geography(geometry_type="POINT", srid=4326))
+    type = Column(String) # e.g., "harassment", "unsafe_street", "crime"
+    media_url = Column(String, nullable=True)
+    description = Column(String, nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

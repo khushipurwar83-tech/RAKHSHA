@@ -1,14 +1,13 @@
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
-from sqlalchemy.dialects.postgresql import UUID
-import uuid
-from src.config.database import Base
+from sqlalchemy import Column, Integer, ForeignKey, Float, DateTime
+from sqlalchemy.sql import func
+from geoalchemy2 import Geography
+from src.core.database import Base
 
 class Route(Base):
     __tablename__ = "routes"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey('users.id'))
-    start_lat = Column(Float)
-    start_lng = Column(Float)
-    end_lat = Column(Float)
-    end_lng = Column(Float)
-    safety_score = Column(Float)
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    path = Column(Geography(geometry_type="LINESTRING", srid=4326))
+    risk_score = Column(Float, default=0.0)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())

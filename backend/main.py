@@ -1,16 +1,10 @@
 import uvicorn
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
+from src.app import app
 
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))
-    # We run the application from src.app:app
     uvicorn.run(
-        "src.app:app",
+        "main:app",
         host="0.0.0.0",
-        port=port,
-        reload=True,
-        log_level="info"
+        port=8000,
+        reload=True
     )
